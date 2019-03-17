@@ -1,17 +1,25 @@
-FROM python:3.6-alpine
+FROM python:3.7.2-slim-stretch
 
-COPY requirements.txt ./app/requirements.txt
+# Install build dependencies.
+RUN apt-get update \
+ && apt-get install --no-install-recommends --assume-yes build-essential \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
-RUN apk update && \
- apk add postgresql-libs && \
- apk add --virtual .build-deps gcc musl-dev postgresql-dev && \
- python3 -m pip install -r ./app/requirements.txt --no-cache-dir && \
- apk --purge del .build-deps
-
-COPY docker/.env ./app/.env
-COPY api ./app/api
-COPY run_app.py ./app/run_app.py
-
+# Change workdir to app.
 WORKDIR ./app
 
-CMD ["python3", "run.py"]
+# Install app dependencies.
+COPY requirements.txt ./requirements.txt
+RUN pip install --upgrade pip --no-cache-dir \
+ && pip install -r ./requirements.txt --no-cache-dir
+
+# Copy app files.
+COPY api ./api
+COPY run_app.py ./run_app.py
+COPY run_app.sh ./run_app.sh
+COPY logging.conf ./logging.conf
+COPY VERSION ./VERSION
+
+# Run the application.
+CMD ["./run_app.sh"]
