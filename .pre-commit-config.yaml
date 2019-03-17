@@ -1,0 +1,40 @@
+repos:
+-   repo: https://github.com/ambv/black
+    rev: 18.9b0
+    hooks:
+      -   id: black
+          args: [--line-length=88, --safe]
+          language_version: python3.6
+          exclude: >
+            (?x)^(
+                punch_version.py|
+                punch_config.py
+            )$
+-   repo: git://github.com/pre-commit/pre-commit-hooks
+    rev: v2.1.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: check-added-large-files
+    -   id: check-ast
+    -   id: check-docstring-first
+    -   id: check-json
+    -   id: check-merge-conflict
+    -   id: check-yaml
+    -   id: debug-statements
+    -   id: end-of-file-fixer
+    -   id: pretty-format-json
+    -   id: requirements-txt-fixer
+    -   id: flake8
+        additional_dependencies: ['flake8-docstrings==1.3.0']
+        exclude: >
+          (?x)^(
+              punch_version.py|
+              punch_config.py|
+          )$
+        args:
+        -   --ignore=E501,F401,E712,W503,E722,D202,F841,D403,E203
+-   repo: git://github.com/asottile/reorder_python_imports
+    rev: v1.3.5
+    hooks:
+    -   id: reorder-python-imports
+        language_version: python3

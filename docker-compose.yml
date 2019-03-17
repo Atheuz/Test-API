@@ -1,0 +1,19 @@
+---
+version: '3'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    ports:
+      - 8000:8000
+    links:
+      - redis:redis
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379/tcp
+    restart: always

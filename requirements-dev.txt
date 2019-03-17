@@ -1,0 +1,7 @@
+-r requirements.txt
+black==18.9b0
+pip-upgrader==1.4.6
+pre-commit==1.11.1
+prospector==1.1.6.2
+punch.py==1.5.0
+restructuredtext_lint==1.2.2

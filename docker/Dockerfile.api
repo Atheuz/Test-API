@@ -1,0 +1,17 @@
+FROM python:3.6-alpine
+
+COPY requirements.txt ./app/requirements.txt
+
+RUN apk update && \
+ apk add postgresql-libs && \
+ apk add --virtual .build-deps gcc musl-dev postgresql-dev && \
+ python3 -m pip install -r ./app/requirements.txt --no-cache-dir && \
+ apk --purge del .build-deps
+
+COPY docker/.env ./app/.env
+COPY api ./app/api
+COPY run_app.py ./app/run_app.py
+
+WORKDIR ./app
+
+CMD ["python3", "run.py"]
