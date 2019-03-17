@@ -15,7 +15,7 @@ To run locally, use the following commands:
   docker-compose up -d redis
   python run.py
 
-Then try to visit `http://localhost:8000/api/v1/ping`.
+Then try to visit `http://localhost:8000/api/v1/basic/ping`.
 
 Running in docker
 -----------------
