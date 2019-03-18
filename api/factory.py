@@ -48,8 +48,10 @@ def setup_redis(app):
 def setup_routes(app):
     """Register routes."""
     from api.routers import basic
+    from api.routers import cat
 
     app.include_router(basic.router, prefix=app.config["API_PREFIX"])
+    app.include_router(cat.router, prefix=app.config["API_PREFIX"])
 
 
 def setup_requests(app):
