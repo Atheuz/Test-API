@@ -2,7 +2,6 @@ email-validator==1.0.3
 fastapi==0.8.0
 python-dotenv==0.10.1
 python-json-logger==0.1.10
-python-json-logger==0.1.10
 redis==3.2.1
 requests==2.21.0
 uvicorn==0.6.1
